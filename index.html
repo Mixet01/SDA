@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
 
 <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>SDA Ore Manager</title>
 
@@ -52,6 +55,22 @@ Malattia
 
 <div class="card">
 
+<h2>Mese</h2>
+
+<div class="mese_nav">
+
+<button onclick="mesePrecedente()">◀</button>
+
+<input type="month" id="mese">
+
+<button onclick="meseSuccessivo()">▶</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
 <h2>Registro Giorni</h2>
 
 <table>
@@ -59,12 +78,14 @@ Malattia
 <thead>
 
 <tr>
+
 <th>Data</th>
 <th>Inizio</th>
 <th>Fine</th>
 <th>Descrizione</th>
 <th>Totale €</th>
 <th>Azioni</th>
+
 </tr>
 
 </thead>
@@ -84,4 +105,5 @@ Malattia
 <script src="app.js"></script>
 
 </body>
+
 </html>

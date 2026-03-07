@@ -117,7 +117,51 @@ total:totale.toFixed(2)
 
 }
 
+function mesePrecedente(){
+
+let m=document.getElementById("mese")
+
+let d=new Date(m.value)
+
+d.setMonth(d.getMonth()-1)
+
+m.value=d.toISOString().slice(0,7)
+
+render()
+
+}
+
+function meseSuccessivo(){
+
+let m=document.getElementById("mese")
+
+let d=new Date(m.value)
+
+d.setMonth(d.getMonth()+1)
+
+m.value=d.toISOString().slice(0,7)
+
+render()
+
+}
+
+function getWeekNumber(date){
+
+let d=new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()))
+
+let dayNum=d.getUTCDay()||7
+
+d.setUTCDate(d.getUTCDate()+4-dayNum)
+
+let yearStart=new Date(Date.UTC(d.getUTCFullYear(),0,1))
+
+return Math.ceil((((d-yearStart)/86400000)+1)/7)
+
+}
+
 function render(){
+
+let mese=document.getElementById("mese").value
 
 let tbody=document.getElementById("tabella")
 
@@ -125,9 +169,29 @@ tbody.innerHTML=""
 
 let totale=0
 
+let settimanaPrecedente=null
+
 data.sort((a,b)=>a.date.localeCompare(b.date))
 
 data.forEach((e,i)=>{
+
+if(!e.date.startsWith(mese)) return
+
+let d=new Date(e.date)
+
+let week=getWeekNumber(d)
+
+if(week!=settimanaPrecedente){
+
+let tr=document.createElement("tr")
+
+tr.innerHTML=`<td colspan="6" class="week">----- NUOVA SETTIMANA -----</td>`
+
+tbody.appendChild(tr)
+
+settimanaPrecedente=week
+
+}
 
 let tr=document.createElement("tr")
 
@@ -140,7 +204,7 @@ tr.innerHTML=`
 <td>${e.total}</td>
 
 <td>
-<button onclick="cancella(${i})">X</button>
+<button onclick="cancella(${i})">🗑</button>
 </td>
 
 `
@@ -151,7 +215,8 @@ totale+=Number(e.total)
 
 })
 
-document.getElementById("totale_mese").innerText="Totale mese: "+totale.toFixed(2)+" €"
+document.getElementById("totale_mese").innerText=
+"Totale mese: "+totale.toFixed(2)+" €"
 
 }
 
@@ -164,5 +229,8 @@ salva()
 render()
 
 }
+
+document.getElementById("mese").value=
+new Date().toISOString().slice(0,7)
 
 render()

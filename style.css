@@ -58,6 +58,12 @@ cursor:pointer;
 
 }
 
+button:hover{
+
+background:#0057A4;
+
+}
+
 table{
 
 width:100%;
@@ -81,5 +87,25 @@ td{
 padding:8px;
 
 border-bottom:1px solid #ddd;
+
+}
+
+.week{
+
+background:#e6f2ff;
+
+font-weight:bold;
+
+text-align:center;
+
+}
+
+.mese_nav{
+
+display:flex;
+
+gap:10px;
+
+align-items:center;
 
 }
