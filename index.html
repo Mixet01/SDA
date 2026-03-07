@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+
+<meta charset="UTF-8">
+
+<title>SDA Ore Manager</title>
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<h1>SDA Poste Italiane</h1>
+
+<div class="card">
+
+<h2>Inserimento Giorno</h2>
+
+<input type="date" id="date">
+
+<input type="time" id="start" value="06:00">
+
+<input type="time" id="end" value="14:00">
+
+<label>
+<input type="checkbox" id="festivo">
+Festivo lavorato
+</label>
+
+<label>
+<input type="checkbox" id="festivo_goduto">
+Festivo goduto
+</label>
+
+<label>
+<input type="checkbox" id="ferie">
+Ferie
+</label>
+
+<label>
+<input type="checkbox" id="malattia">
+Malattia
+</label>
+
+<button onclick="aggiungi()">Salva Giorno</button>
+
+</div>
+
+<div class="card">
+
+<h2>Registro Giorni</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Data</th>
+<th>Inizio</th>
+<th>Fine</th>
+<th>Descrizione</th>
+<th>Totale €</th>
+<th>Azioni</th>
+</tr>
+
+</thead>
+
+<tbody id="tabella"></tbody>
+
+</table>
+
+</div>
+
+<div class="card">
+
+<h2 id="totale_mese"></h2>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
