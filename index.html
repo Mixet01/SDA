@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>SDA Ore Manager</title>
+<title>SDA Ore</title>
 
 <link rel="manifest" href="manifest.json">
 
@@ -17,7 +17,23 @@
 
 <body>
 
-<h1>SDA Poste Italiane</h1>
+<header>
+
+<h1>SDA Ore</h1>
+
+<div class="mese_nav">
+
+<button onclick="mesePrecedente()">◀</button>
+
+<span id="mese_label"></span>
+
+<button onclick="meseSuccessivo()">▶</button>
+
+</div>
+
+</header>
+
+<div id="calendar"></div>
 
 <div class="card">
 
@@ -49,23 +65,7 @@ Ferie
 Malattia
 </label>
 
-<button onclick="aggiungi()">Salva Giorno</button>
-
-</div>
-
-<div class="card">
-
-<h2>Mese</h2>
-
-<div class="mese_nav">
-
-<button onclick="mesePrecedente()">◀</button>
-
-<input type="month" id="mese">
-
-<button onclick="meseSuccessivo()">▶</button>
-
-</div>
+<button onclick="salvaGiorno()">Salva</button>
 
 </div>
 
@@ -78,14 +78,11 @@ Malattia
 <thead>
 
 <tr>
-
 <th>Data</th>
-<th>Inizio</th>
-<th>Fine</th>
+<th>Ore</th>
 <th>Descrizione</th>
-<th>Totale €</th>
-<th>Azioni</th>
-
+<th>€</th>
+<th></th>
 </tr>
 
 </thead>

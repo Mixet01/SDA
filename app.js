@@ -22,13 +22,15 @@ SOGLIA_STRAORDINARIO:8
 
 let data=JSON.parse(localStorage.getItem("sda_data")||"[]")
 
-function salva(){
+let currentMonth=new Date()
+
+function salvaDB(){
 
 localStorage.setItem("sda_data",JSON.stringify(data))
 
 }
 
-function aggiungi(){
+function salvaGiorno(){
 
 let date=document.getElementById("date").value
 let start=document.getElementById("start").value
@@ -53,7 +55,7 @@ total:risultato.total
 
 })
 
-salva()
+salvaDB()
 
 render()
 
@@ -110,58 +112,56 @@ startDate.setMinutes(startDate.getMinutes()+1)
 return{
 
 desc:"Lavorato",
-
 total:totale.toFixed(2)
 
 }
 
 }
 
-function mesePrecedente(){
+function generaCalendario(){
 
-let m=document.getElementById("mese")
+let cal=document.getElementById("calendar")
 
-let d=new Date(m.value)
+cal.innerHTML=""
 
-d.setMonth(d.getMonth()-1)
+let year=currentMonth.getFullYear()
+let month=currentMonth.getMonth()
 
-m.value=d.toISOString().slice(0,7)
+document.getElementById("mese_label").innerText=
+currentMonth.toLocaleDateString("it-IT",{month:"long",year:"numeric"})
 
-render()
+let giorni=new Date(year,month+1,0).getDate()
+
+for(let g=1;g<=giorni;g++){
+
+let dataStr=`${year}-${String(month+1).padStart(2,"0")}-${String(g).padStart(2,"0")}`
+
+let giorno=document.createElement("div")
+
+giorno.className="day"
+
+giorno.innerText=g
+
+if(data.find(e=>e.date==dataStr))
+giorno.classList.add("work")
+
+giorno.onclick=()=>{
+
+document.getElementById("date").value=dataStr
+
+window.scrollTo({top:300,behavior:"smooth"})
 
 }
 
-function meseSuccessivo(){
-
-let m=document.getElementById("mese")
-
-let d=new Date(m.value)
-
-d.setMonth(d.getMonth()+1)
-
-m.value=d.toISOString().slice(0,7)
-
-render()
+cal.appendChild(giorno)
 
 }
-
-function getWeekNumber(date){
-
-let d=new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()))
-
-let dayNum=d.getUTCDay()||7
-
-d.setUTCDate(d.getUTCDate()+4-dayNum)
-
-let yearStart=new Date(Date.UTC(d.getUTCFullYear(),0,1))
-
-return Math.ceil((((d-yearStart)/86400000)+1)/7)
 
 }
 
 function render(){
 
-let mese=document.getElementById("mese").value
+generaCalendario()
 
 let tbody=document.getElementById("tabella")
 
@@ -169,37 +169,20 @@ tbody.innerHTML=""
 
 let totale=0
 
-let settimanaPrecedente=null
-
 data.sort((a,b)=>a.date.localeCompare(b.date))
 
 data.forEach((e,i)=>{
 
-if(!e.date.startsWith(mese)) return
-
 let d=new Date(e.date)
 
-let week=getWeekNumber(d)
-
-if(week!=settimanaPrecedente){
-
-let tr=document.createElement("tr")
-
-tr.innerHTML=`<td colspan="6" class="week">----- NUOVA SETTIMANA -----</td>`
-
-tbody.appendChild(tr)
-
-settimanaPrecedente=week
-
-}
+if(d.getMonth()!=currentMonth.getMonth()||d.getFullYear()!=currentMonth.getFullYear()) return
 
 let tr=document.createElement("tr")
 
 tr.innerHTML=`
 
 <td>${e.date}</td>
-<td>${e.start}</td>
-<td>${e.end}</td>
+<td>${e.start}-${e.end}</td>
 <td>${e.desc}</td>
 <td>${e.total}</td>
 
@@ -224,13 +207,26 @@ function cancella(i){
 
 data.splice(i,1)
 
-salva()
+salvaDB()
 
 render()
 
 }
 
-document.getElementById("mese").value=
-new Date().toISOString().slice(0,7)
+function mesePrecedente(){
+
+currentMonth.setMonth(currentMonth.getMonth()-1)
+
+render()
+
+}
+
+function meseSuccessivo(){
+
+currentMonth.setMonth(currentMonth.getMonth()+1)
+
+render()
+
+}
 
 render()
