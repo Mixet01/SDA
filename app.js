@@ -1,4 +1,4 @@
-const settings={
+const defaultSettings={
 
 BASE_GIORNO:10,
 BASE_NOTTE:12,
@@ -19,6 +19,8 @@ FESTIVO_GODUTO:80,
 SOGLIA_STRAORDINARIO:8
 
 }
+
+let settings=JSON.parse(localStorage.getItem("sda_settings"))||{...defaultSettings}
 
 let data=JSON.parse(localStorage.getItem("sda_data")||"[]")
 
@@ -230,7 +232,30 @@ render()
 
 }
 
+function caricaImpostazioni(){
+
+for(let key in settings){
+    let input = document.getElementById("set_" + key)
+    if(input) input.value = settings[key]
+}
+
+}
+
+function salvaImpostazioni(){
+
+for(let key in settings){
+    let input = document.getElementById("set_" + key)
+    if(input) settings[key] = Number(input.value)
+}
+
+localStorage.setItem("sda_settings", JSON.stringify(settings))
+alert("Impostazioni salvate!")
+render()
+
+}
+
 document.getElementById("mese").value=
 new Date().toISOString().slice(0,7)
 
+caricaImpostazioni()
 render()
