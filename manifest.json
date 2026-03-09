@@ -1,15 +1,8 @@
 {
-"name": "SDA Ore",
-"short_name": "SDA",
-"start_url": "index.html",
-"display": "standalone",
-"background_color": "#ffffff",
-"theme_color": "#0057A4",
-"icons": [
-{
-"src": "icon.png",
-"sizes": "512x512",
-"type": "image/png"
-}
-]
+  "name": "SDA Ore Pro",
+  "short_name": "SDAOre",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Gestione ore e paga lavoro"
 }

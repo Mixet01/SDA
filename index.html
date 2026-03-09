@@ -1,242 +1,66 @@
-feature/impostazioni-paghe-8445533161204414712
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>SDA Ore Manager</title>
-
-<link rel="manifest" href="manifest.json">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDA Ore Pro</title>
 <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
 
-<h1>SDA Poste Italiane</h1>
+<div id="auth">
+<h2>Login</h2>
+<input id="login_user" placeholder="Username">
+<input id="login_pass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
 
-<div class="card">
-
-<h2>Inserimento Giorno</h2>
-
-<input type="date" id="date">
-
-<input type="time" id="start" value="06:00">
-
-<input type="time" id="end" value="14:00">
-
-<label>
-<input type="checkbox" id="festivo">
-Festivo lavorato
-</label>
-
-<label>
-<input type="checkbox" id="festivo_goduto">
-Festivo goduto
-</label>
-
-<label>
-<input type="checkbox" id="ferie">
-Ferie
-</label>
-
-<label>
-<input type="checkbox" id="malattia">
-Malattia
-</label>
-
-<button onclick="aggiungi()">Salva Giorno</button>
-
+<h2>Registrazione</h2>
+<input id="reg_user" placeholder="Username">
+<input id="reg_pass" type="password" placeholder="Password">
+<button onclick="register()">Registrati</button>
 </div>
 
-<div class="card">
+<div id="app" style="display:none;">
+<h1>Dashboard</h1>
 
-<h2>Impostazioni Paghe</h2>
+<div class="section">
+<h3>Impostazioni Paga</h3>
 
-<div class="settings-grid">
+<label>Paga base giorno</label>
+<input id="base_day">
 
-<label>Base Giorno: <input type="number" id="set_BASE_GIORNO" step="0.01"></label>
-<label>Base Notte: <input type="number" id="set_BASE_NOTTE" step="0.01"></label>
-<label>OT Giorno: <input type="number" id="set_OT_GIORNO" step="0.01"></label>
-<label>OT Notte: <input type="number" id="set_OT_NOTTE" step="0.01"></label>
-<label>Sabato Giorno: <input type="number" id="set_SABATO_GIORNO" step="0.01"></label>
-<label>Sabato Notte: <input type="number" id="set_SABATO_NOTTE" step="0.01"></label>
-<label>Festivo Giorno: <input type="number" id="set_FESTIVO_GIORNALIERO" step="0.01"></label>
-<label>Festivo Notte: <input type="number" id="set_FESTIVO_NOTTURNO" step="0.01"></label>
-<label>Ferie: <input type="number" id="set_FERIE" step="0.01"></label>
-<label>Malattia: <input type="number" id="set_MALATTIA" step="0.01"></label>
-<label>Festivo Goduto: <input type="number" id="set_FESTIVO_GODUTO" step="0.01"></label>
-<label>Soglia Straordinario (ore): <input type="number" id="set_SOGLIA_STRAORDINARIO" step="1"></label>
+<label>Paga base notte</label>
+<input id="base_night">
 
+<label>Straordinario giorno</label>
+<input id="ot_day">
+
+<label>Straordinario notte</label>
+<input id="ot_night">
+
+<label>Sabato</label>
+<input id="sat">
+
+<label>Festivo</label>
+<input id="holiday">
+
+<button onclick="saveSettings()">Salva impostazioni</button>
 </div>
 
-<button onclick="salvaImpostazioni()">Salva Impostazioni</button>
-
+<div class="section">
+<h3>Ore lavorate</h3>
+<input id="hours" placeholder="Ore lavorate oggi">
+<button onclick="saveHours()">Salva</button>
 </div>
 
-<div class="card">
-
-<h2>Mese</h2>
-
-<div class="mese_nav">
-
-<button onclick="mesePrecedente()">◀</button>
-
-<input type="month" id="mese">
-
-<button onclick="meseSuccessivo()">▶</button>
-
+<div class="section">
+<h3>Storico</h3>
+<ul id="history"></ul>
 </div>
 
-</div>
-
-<div class="card">
-
-<h2>Registro Giorni</h2>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Data</th>
-<th>Inizio</th>
-<th>Fine</th>
-<th>Descrizione</th>
-<th>Totale €</th>
-<th>Azioni</th>
-
-</tr>
-
-</thead>
-
-<tbody id="tabella"></tbody>
-
-</table>
-
-</div>
-
-<div class="card">
-
-<h2 id="totale_mese"></h2>
-
+<button onclick="logout()">Logout</button>
 </div>
 
 <script src="app.js"></script>
-
 </body>
-
-=======
-<!DOCTYPE html>
-<html lang="it">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>SDA Ore</title>
-
-<link rel="manifest" href="manifest.json">
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-
-<header>
-
-<h1>SDA Ore</h1>
-
-<div class="mese_nav">
-
-<button onclick="mesePrecedente()">◀</button>
-
-<span id="mese_label"></span>
-
-<button onclick="meseSuccessivo()">▶</button>
-
-</div>
-
-</header>
-
-<div id="calendar"></div>
-
-<div class="card">
-
-<h2>Inserimento Giorno</h2>
-
-<input type="date" id="date">
-
-<input type="time" id="start" value="06:00">
-
-<input type="time" id="end" value="14:00">
-
-<label>
-<input type="checkbox" id="festivo">
-Festivo lavorato
-</label>
-
-<label>
-<input type="checkbox" id="festivo_goduto">
-Festivo goduto
-</label>
-
-<label>
-<input type="checkbox" id="ferie">
-Ferie
-</label>
-
-<label>
-<input type="checkbox" id="malattia">
-Malattia
-</label>
-
-<button onclick="salvaGiorno()">Salva</button>
-
-</div>
-
-<div class="card">
-
-<h2>Registro Giorni</h2>
-
-<table>
-
-<thead>
-
-<tr>
-<th>Data</th>
-<th>Ore</th>
-<th>Descrizione</th>
-<th>€</th>
-<th></th>
-</tr>
-
-</thead>
-
-<tbody id="tabella"></tbody>
-
-</table>
-
-</div>
-
-<div class="card">
-
-<h2 id="totale_mese"></h2>
-
-</div>
-
-<script src="app.js"></script>
-
-</body>
-
-main
 </html>
