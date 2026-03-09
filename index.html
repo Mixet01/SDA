@@ -1,3 +1,4 @@
+feature/impostazioni-paghe-8445533161204414712
 <!DOCTYPE html>
 <html lang="it">
 
@@ -131,4 +132,111 @@ Malattia
 
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SDA Ore</title>
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>SDA Ore</h1>
+
+<div class="mese_nav">
+
+<button onclick="mesePrecedente()">◀</button>
+
+<span id="mese_label"></span>
+
+<button onclick="meseSuccessivo()">▶</button>
+
+</div>
+
+</header>
+
+<div id="calendar"></div>
+
+<div class="card">
+
+<h2>Inserimento Giorno</h2>
+
+<input type="date" id="date">
+
+<input type="time" id="start" value="06:00">
+
+<input type="time" id="end" value="14:00">
+
+<label>
+<input type="checkbox" id="festivo">
+Festivo lavorato
+</label>
+
+<label>
+<input type="checkbox" id="festivo_goduto">
+Festivo goduto
+</label>
+
+<label>
+<input type="checkbox" id="ferie">
+Ferie
+</label>
+
+<label>
+<input type="checkbox" id="malattia">
+Malattia
+</label>
+
+<button onclick="salvaGiorno()">Salva</button>
+
+</div>
+
+<div class="card">
+
+<h2>Registro Giorni</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Data</th>
+<th>Ore</th>
+<th>Descrizione</th>
+<th>€</th>
+<th></th>
+</tr>
+
+</thead>
+
+<tbody id="tabella"></tbody>
+
+</table>
+
+</div>
+
+<div class="card">
+
+<h2 id="totale_mese"></h2>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+
+main
 </html>
